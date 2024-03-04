@@ -1,0 +1,78 @@
+{
+    "reqTemplates": [
+        {
+            "requirement": {
+                "titleEn": "SoftwareRunningEnvReq",
+                "titleZh": "软件运行环境要求",
+                "type": 1,
+                "reqTemplates": [
+                    {
+                        "requirement": {
+                            "titleEn": "HardwareEnvReq",
+                            "titleZh": "硬件环境要求",
+                            "type": 1,
+                            "reqTemplates": [
+                                {
+                                    "requirement": {
+                                        "titleEn": "InfRelReqTable",
+                                        "titleZh": "接口关系要求表",
+                                        "type": 0,
+                                        "table": [
+                                            {
+                                                "type": 1,
+                                                "titleZh": "需求编号",
+                                                "dataIndex": "number"
+                                            },
+                                            {
+                                                "type": 0,
+                                                "titleZh": "名称",
+                                                "dataIndex": "name"
+                                            },
+                                            {
+                                                "type": 0,
+                                                "titleZh": "描述",
+                                                "dataIndex": "description"
+                                            }
+                                        ]
+                                    },
+                                    "multiple": true,
+                                    "max": 10
+                                },
+                                {
+                                    "requirement": {
+                                        "titleEn": "InfTable",
+                                        "titleZh": "硬件接口表",
+                                        "type": 0,
+                                        "table": [
+                                            {
+                                                "type": 1,
+                                                "titleZh": "需求编号",
+                                                "dataIndex": "id"
+                                            },
+                                            {
+                                                "type": 0,
+                                                "titleZh": "接口名称",
+                                                "dataIndex": "name"
+                                            },
+                                            {
+                                                "type": 0,
+                                                "titleZh": "操作类型",
+                                                "dataIndex": "op_type"
+                                            }
+                                        ]
+                                    },
+                                    "multiple": true,
+                                    "max": 10
+                                }
+                            ]
+                        },
+                        "multiple": true,
+                        "max": 10
+                    }
+                ]
+            },
+            "multiple": false,
+            "max": 1
+        }
+    ]
+}

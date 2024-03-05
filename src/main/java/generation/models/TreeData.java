@@ -3,6 +3,7 @@ package generation.models;
 import generation.generator.tree.TreeGenerator;
 
 import java.util.ArrayList;
+import java.util.UUID;
 
 public class TreeData {
     public String key;
@@ -32,12 +33,12 @@ public class TreeData {
     public static void addTreeData(ArrayList<ReqTemplate> reqTemplates, String father) {
         for (int index = 0; index < reqTemplates.size(); index++) {
             Requirement req = reqTemplates.get(index).requirement;
-
-            TreeData node = new TreeData(req, father + index);
+            UUID uuid = UUID.randomUUID();
+            TreeData node = new TreeData(req, uuid.toString());
             addTreeData(node, father);
 
             if (req.type == ReqType.COMPLEX) {
-                addTreeData(req.reqTemplates, father + index);
+                addTreeData(req.reqTemplates, uuid.toString());
             }
         }
     }

@@ -9,6 +9,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.UUID;
 
 public class TreeGenerator {
     public static TreeData treeData = new TreeData(new Requirement(new ArrayList<>()), "");
@@ -24,13 +25,14 @@ public class TreeGenerator {
     private String generateReactTreeNode() {
         ArrayList<TreeData> reqNodes = treeData.reqChildren;
         StringBuilder treeNodeString = new StringBuilder("const treeData: TreeDataNode[] = [\n");
-        for(int index = 0; index < reqNodes.size(); index++) {
-            TreeData node = reqNodes.get(index);
+        for (TreeData node : reqNodes) {
             Requirement req = node.requirement;
-            if(req.type == ReqType.COMPLEX) {
-                generateTreeDataObject(treeNodeString, index+"", node, req);
-                for(int sonIndex = 0; sonIndex < node.reqChildren.size(); sonIndex++) {
-                    String child = generateReactTreeNode(node.reqChildren.get(sonIndex), index+"-"+sonIndex);
+            if (req.type == ReqType.COMPLEX) {
+                UUID uuid = UUID.randomUUID();
+                generateTreeDataObject(treeNodeString, uuid.toString(), node, req);
+                for (int sonIndex = 0; sonIndex < node.reqChildren.size(); sonIndex++) {
+                    UUID uuidSon = UUID.randomUUID();
+                    String child = generateReactTreeNode(node.reqChildren.get(sonIndex), uuidSon.toString());
                     treeNodeString.append(child);
                 }
                 treeNodeString.append("],\n");
@@ -51,13 +53,14 @@ public class TreeGenerator {
         ArrayList<TreeData> reqNodes = fatherNode.reqChildren;
         generateTreeDataObject(treeNodeString, key, fatherNode, fatherNode.requirement);
 
-        for(int index = 0; index < reqNodes.size(); index++) {
-            TreeData node = reqNodes.get(index);
+        for (TreeData node : reqNodes) {
             Requirement req = node.requirement;
-            if(req.type == ReqType.COMPLEX) {
-                generateTreeDataObject(treeNodeString, key+"-"+index, node, req);
-                for(int sonIndex = 0; sonIndex < node.reqChildren.size(); sonIndex++) {
-                    generateReactTreeNode(node.reqChildren.get(sonIndex), key+"-"+index+"-"+sonIndex);
+            if (req.type == ReqType.COMPLEX) {
+                UUID uuid = UUID.randomUUID();
+                generateTreeDataObject(treeNodeString, uuid.toString(), node, req);
+                  for(TreeData sonNode : node.reqChildren) {
+                    UUID uuidSon = UUID.randomUUID();
+                    generateReactTreeNode(sonNode, uuidSon.toString());
                 }
                 treeNodeString.append("],\n");
                 treeNodeString.append("},\n");
@@ -99,7 +102,7 @@ public class TreeGenerator {
                     type: "group",
                     children: [""");
         for(int index = 0; index < tables.size(); index++) {
-            Requirement req = tables.get(0).requirement;
+            Requirement req = tables.get(index).requirement;
             itemsString.append("{\n");
             itemsString.append("key: ").append("\"1-").append(index).append("\",\n");
             itemsString.append("label: \"").append(req.titleZh).append("\",\n");
